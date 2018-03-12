@@ -3,15 +3,16 @@ const square = document.querySelector('.square');
 let clicked = {};
 let moving = false;
 let x, y;
+
 // Mouse events
 square.addEventListener('mousedown', onMouseDown);
 document.addEventListener('mousemove', onMove);
 document.addEventListener('mouseup', onUp);
 
 // Touch events 
-//square.addEventListener('touchstart', onTouchDown);
-//document.addEventListener('touchmove', onTouchMove);
-//document.addEventListener('touchend', onTouchEnd);
+square.addEventListener('touchstart', onTouchDown);
+document.addEventListener('touchmove', onTouchMove);
+document.addEventListener('touchend', onTouchEnd);
 
 function onTouchDown(e) {
   onDown(e.touches[0]);
@@ -27,7 +28,6 @@ function onTouchEnd(e) {
 }
 
 function onMouseDown(e) {
-  console.log(e);
   onDown(e);
   e.preventDefault();
 }
@@ -49,7 +49,6 @@ function onDown(e) {
 
 function onMove(e) {
   if(moving === true) {
-    console.log(e);
     // moving
     square.style.top = (e.clientY - clicked.y) + 'px';
     square.style.left = (e.clientX - clicked.x) + 'px';
