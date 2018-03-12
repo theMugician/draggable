@@ -2,17 +2,16 @@ const square = document.querySelector('.square');
 
 let clicked = {};
 let moving = false;
-
+let x, y;
 // Mouse events
 square.addEventListener('mousedown', onMouseDown);
 document.addEventListener('mousemove', onMove);
 document.addEventListener('mouseup', onUp);
 
 // Touch events 
-//pane.addEventListener('touchstart', onTouchDown);
+//square.addEventListener('touchstart', onTouchDown);
 //document.addEventListener('touchmove', onTouchMove);
 //document.addEventListener('touchend', onTouchEnd);
-
 
 function onTouchDown(e) {
   onDown(e.touches[0]);
@@ -34,6 +33,9 @@ function onMouseDown(e) {
 }
 
 function onDown(e) {
+  //Get x,y coordinates of pointer related to square
+  calc(e);
+
   moving = true;
 
   clicked = {
@@ -41,9 +43,7 @@ function onDown(e) {
     y: y,
     cx: e.clientX,
     cy: e.clientY,
-    w: b.width,
-    h: b.height,
-    isMoving: !isResizing && canMove(),
+    //isMoving: !isResizing && canMove(),
   };
 }
 
@@ -59,25 +59,9 @@ function onMove(e) {
 function onUp(e) {
   moving = false;
 }
-/*
-function onDown(e) {
-  calc(e);
 
-  var isResizing = onRightEdge || onBottomEdge || onTopEdge || onLeftEdge;
-
-  clicked = {
-    x: x,
-    y: y,
-    cx: e.clientX,
-    cy: e.clientY,
-    w: b.width,
-    h: b.height,
-    isResizing: isResizing,
-    isMoving: !isResizing && canMove(),
-    onTopEdge: onTopEdge,
-    onLeftEdge: onLeftEdge,
-    onRightEdge: onRightEdge,
-    onBottomEdge: onBottomEdge
-  };
+function calc(e) {
+  b = square.getBoundingClientRect();
+  x = e.clientX - b.left;
+  y = e.clientY - b.top;
 }
-*/
